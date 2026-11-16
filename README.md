@@ -1,16 +1,35 @@
-# React + Vite
+# Inventory Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A professional, responsive single-page application for managing inventory, tracking stock movements, generating reports, and monitoring business KPIs.
 
-Currently, two official plugins are available:
+## Features
+- **Inventory Tracking:** CRUD for products with unique SKU generation, category and supplier relational linking.
+- **Stock Management:** Atomic Receive (IN), Issue (OUT), and Adjust operations with strict validation (cannot issue more than available).
+- **Audit Trail:** Every stock change generates an immutable `StockMovement` record, preserving history.
+- **Reports Dashboard:** KPI cards, visual charts (Recharts), low-stock alerts, and valuation tables.
+- **Data Export:** CSV export for full inventory valuation.
+- **Persistence:** Data is stored reliably in browser `localStorage`.
+- **Referential Integrity:** Deleting categories/suppliers is blocked if linked to active products. Deleting products with history is blocked (offers "discontinue" instead).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
+- React 18 + Vite
+- Vanilla CSS (Design tokens, responsive flex/grid layouts)
+- Recharts (Data visualization)
+- Lucide/Standard Emoji for icons
+- LocalStorage (Data layer)
 
-## React Compiler
+## Business Logic & Architecture
+The application is built with a strict separation of concerns:
+1. **`utils/`**: Pure functions for money parsing (integer cents, no floats), validation, stock operations, and report aggregation.
+2. **`hooks/useInventory.js`**: The single source of truth. Owns the state for all 4 tables and exposes atomic CRUD operations.
+3. **`components/` & `pages/`**: Purely presentational. They receive data and callbacks as props.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### The Stock Invariant
+The system enforces a strict invariant:
+`currentStock = initialStock + sum(IN) - sum(OUT) + sum(ADJUST)`
+A built-in utility `verifyIntegrity()` can be called from the console to audit the ledger.
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Getting Started
+```bash
+npm install
+npm run dev
