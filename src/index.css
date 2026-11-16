@@ -258,3 +258,16 @@ a { color: var(--primary); text-decoration: none; }
 .toolbar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
 .toolbar .input { width: auto; flex: 1 1 200px; }
 .toolbar select.input { flex: 0 1 180px; }
+
+/* ============ Dashboard ============ */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 24px; }
+.kpi-card { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.kpi-label { font-size: 0.85rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.kpi-value { font-size: 1.8rem; font-weight: 700; color: var(--text); }
+.kpi-sub { font-size: 0.8rem; color: var(--muted); }
+
+.chart-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px; }
+@media (max-width: 1000px) { .chart-grid { grid-template-columns: 1fr; } }
+.chart-card { padding: 20px; height: 350px; display: flex; flex-direction: column; }
+.chart-title { font-size: 1rem; font-weight: 600; margin-bottom: 16px; }
+.chart-wrapper { flex: 1; min-height: 0; }
